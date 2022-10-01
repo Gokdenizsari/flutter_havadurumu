@@ -2,7 +2,9 @@
 //Bir miktar beklememiz gerekecek o bekleme süresini burda geçirmek için.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_havadurumu/utils/location.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 //Dinamik işler yapcağımız için stateful kullanıyoruz
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -12,6 +14,28 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  //Takip etmemiz için buraya tanımlamalıyız.
+  LocationHelper? locationData;
+
+  Future<void> getLocationData() async {
+    locationData = LocationHelper();
+    await locationData!.getCurrentLocation();
+
+    if (locationData!.latitude == null || locationData!.longitude == null) {
+      print("Konum bilgisi yok");
+    } else {
+      print("latitude:" + locationData!.latitude.toString());
+      print("Longitute:" + locationData!.longitude.toString());
+    }
+  }
+
+  //Otomatik olarak çağırmak için
+  @override
+  void initState() {
+    super.initState();
+    getLocationData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
