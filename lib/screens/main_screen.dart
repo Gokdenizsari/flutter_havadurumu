@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //Dinamik işlemler yapacağımız için yine stateful kullanırız.
 
 class MainScreen extends StatefulWidget {
-  MainScreen({Key? key}) : super(key: key);
+
+
+  
 
   @override
   State<MainScreen> createState() => _MainScreenState();
