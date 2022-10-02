@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_havadurumu/utils/location.dart';
+import 'package:flutter_havadurumu/utils/weatherdata.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 //Dinamik işler yapcağımız için stateful kullanıyoruz
@@ -26,6 +27,21 @@ class _LoadingScreenState extends State<LoadingScreen> {
     } else {
       print("latitude:" + locationData!.latitude.toString());
       print("Longitute:" + locationData!.longitude.toString());
+    }
+  }
+
+//Yeni bir fonksiyon yapıyoruz bu da hava durumu bilgilerini getiricek.
+//geri dönmesine gerek olmadıgı için vıid
+  void getWeatherData() async {
+    WeatherData weatherData = WeatherData(
+        locationData:
+            locationData /*Hemen location data isteme nedeni required yapmamız*/);
+    await weatherData.getCurrentTemperature();
+    //Bilgilerin geldiğini kontrol etmek için if else
+
+    if (weatherData.currentTemperature == null ||
+        weatherData.currentCondition == null) {
+      print("APİ' den sıcaklık veya durum bilgisi gelmiyor.");
     }
   }
 
